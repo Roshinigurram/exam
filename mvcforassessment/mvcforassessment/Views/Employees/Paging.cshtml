@@ -1,0 +1,56 @@
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<mvcforassessment.Models.Employee>
+
+@{
+    ViewData["Title"] = "Paging";
+}
+
+<h1>Paging</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                EmpName
+            </th>
+            <th>
+                city
+            </th>
+            <th>
+                salary
+            </th>
+            <th>
+                deptid
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.department.DeptId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EmpId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EmpId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EmpId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Paging", new { page = page }))
